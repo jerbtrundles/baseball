@@ -16,7 +16,8 @@ namespace baseball {
         static int nBalls = 0;
         static int nOuts = 0;
 
-        static List<string> GameLog = new List<string>();
+        static int nLogSize = 25;
+        static List<string> GameLog = new List<string>(nLogSize);
 
         static string strClearString = new string(' ', 50);
         static string strLastAction = string.Empty;
@@ -34,6 +35,7 @@ namespace baseball {
 
         static void Main(string[] args) {
             Console.CursorVisible = false;
+            NewGame();
 
             while (true) {
                 while (!GameFinished()) {
@@ -83,18 +85,32 @@ namespace baseball {
         }
 
         #region Log
+        private static void DrawLogShell() {
+            Console.SetCursorPosition(90, 0);
+            Console.WriteLine("|-------------------------|");
+            Console.SetCursorPosition(90, 1);
+            Console.WriteLine("| Game Log                |");
+            Console.SetCursorPosition(90, 2);
+            Console.WriteLine("|-------------------------|");
+            for (int i = 0; i < nLogSize; i++) {
+                Console.SetCursorPosition(90, i + 3);
+                Console.WriteLine("|                         |");
+            }
+            Console.SetCursorPosition(90, 3 + nLogSize);
+            Console.WriteLine("|-------------------------|");
+        }
         private static void DrawLog() {
             for (int i = 0; i < GameLog.Count; i++) {
-                Console.SetCursorPosition(60, i);
+                Console.SetCursorPosition(92, i + 3);
                 Console.WriteLine(new string(' ', 20));
-                Console.SetCursorPosition(60, i);
+                Console.SetCursorPosition(92, i + 3);
                 Console.WriteLine(GameLog[i]);
             }
 
             Console.WriteLine();
         }
         private static void Log(string s) {
-            if (GameLog.Count >= 10) {
+            if (GameLog.Count >= nLogSize) {
                 GameLog.RemoveAt(0);
             }
 
@@ -105,6 +121,7 @@ namespace baseball {
         #region Miscellaneous
         private static void NewGame() {
             Console.Clear();
+            DrawLogShell();
 
             nInning = 0;
             nTeam = 0;
@@ -541,7 +558,7 @@ namespace baseball {
                         Console.ForegroundColor = ConsoleColor.Red;
                         if (nTeam1Scores[i] > 0) {
                             // red number followed by ! if runs scored
-                            Console.Write(nTeam1Scores[i] + '!');
+                            Console.Write(nTeam1Scores[i].ToString() + '!');
                             Console.ForegroundColor = ConsoleColor.Gray;
                             Console.Write('|');
                         }
@@ -596,8 +613,7 @@ namespace baseball {
                     if (nTeam == 1) {
                         Console.ForegroundColor = ConsoleColor.Red;
                         if (nTeam2Scores[i] > 0) {
-                            Console.Write(nTeam2Scores[i]);
-                            Console.Write('!');
+                            Console.Write(nTeam2Scores[i].ToString() + '!');
                             Console.ForegroundColor = ConsoleColor.Gray;
                             Console.Write('|');
                         }
