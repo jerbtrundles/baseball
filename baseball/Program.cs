@@ -313,28 +313,28 @@ namespace baseball {
 
         #region Process Plays
         private static void RandomAction() {
-            int nRandom = r.Next(100);
-            if (nRandom > 99) {
+            int nRandom = r.Next(200);
+            if (nRandom > 198) {
                 // homerun
                 ProcessHomerun();
             }
-            else if (nRandom > 97) {
+            else if (nRandom > 194) {
                 // triple
                 ProcessTriple();
             }
-            else if (nRandom > 95) {
+            else if (nRandom > 190) {
                 // double
                 ProcessDouble();
             }
-            else if (nRandom > 90) {
+            else if (nRandom > 180) {
                 // single
                 ProcessSingle();
             }
-            else if (nRandom > 80) {
+            else if (nRandom > 160) {
                 // random out
                 ProcessRandomOut();
             }
-            else if (nRandom > 40) {
+            else if (nRandom > 80) {
                 // strike
                 ProcessStrike();
             }
