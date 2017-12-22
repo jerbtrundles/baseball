@@ -6,15 +6,6 @@ using System.Threading.Tasks;
 
 namespace baseball {
     class Program {
-        static int nFirst = 0;
-        static int nSecond = 0;
-        static int nThird = 0;
-
-        static int nTeam = 0;
-        static int nInning = 0;
-        static int nStrikes = 0;
-        static int nBalls = 0;
-        static int nOuts = 0;
 
         static int nTeam1Wins = 0;
         static int nTeam2Wins = 0;
@@ -29,6 +20,16 @@ namespace baseball {
 
         static int[] nTeam1Scores = new int[9];
         static int[] nTeam2Scores = new int[9];
+
+        static int nInning = 0;
+        static int nTeam = 0;
+        static int nBalls = 0;
+        static int nStrikes = 0;
+        static int nOuts = 0;
+
+        static int nFirst = 0;
+        static int nSecond = 0;
+        static int nThird = 0;
 
         static int nTeam1Score { get => nTeam1Scores.Sum(); }
         static int nTeam2Score { get => nTeam2Scores.Sum(); }
