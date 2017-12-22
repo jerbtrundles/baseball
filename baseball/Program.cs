@@ -48,6 +48,30 @@ namespace baseball {
         static int nTotalLineOuts = 0;
         static int nTotalPopOuts = 0;
 
+        static int nTotalGames { get => nTeam1Wins + nTeam2Wins + nTies; }
+        static double dAverageSingles = 0;
+        static int nAverageSingles { get => (int)(Math.Round(dAverageSingles)); }
+        static double dAverageDoubles = 0;
+        static int nAverageDoubles { get => (int)(Math.Round(dAverageDoubles)); }
+        static double dAverageTriples = 0;
+        static int nAverageTriples { get => (int)(Math.Round(dAverageTriples)); }
+        static double dAverageHomeruns = 0;
+        static int nAverageHomeruns { get => (int)(Math.Round(dAverageHomeruns)); }
+        static double dAverageBalls = 0;
+        static int nAverageBalls { get => (int)(Math.Round(dAverageBalls)); }
+        static double dAverageWalks = 0;
+        static int nAverageWalks { get => (int)(Math.Round(dAverageWalks)); }
+        static double dAverageStrikes = 0;
+        static int nAverageStrikes { get => (int)(Math.Round(dAverageStrikes)); }
+        static double dAverageStrikeouts = 0;
+        static int nAverageStrikeouts { get => (int)(Math.Round(dAverageStrikeouts)); }
+        static double dAverageFlyOuts = 0;
+        static int nAverageFlyOuts { get => (int)(Math.Round(dAverageFlyOuts)); }
+        static double dAverageLineOuts = 0;
+        static int nAverageLineOuts { get => (int)(Math.Round(dAverageLineOuts)); }
+        static double dAveragePopOuts = 0;
+        static int nAveragePopOuts { get => (int)(Math.Round(dAveragePopOuts)); }
+
         static Random r = new Random(DateTime.Now.Millisecond);
 
         static void Main(string[] args) {
@@ -123,6 +147,46 @@ namespace baseball {
             Console.SetCursorPosition(0, 8);
             Console.WriteLine("Team 1 record: " + nTeam1Wins.ToString() + "-" + nTeam2Wins.ToString() + (nTies > 0 ? "-" + nTies.ToString() : string.Empty));
             Console.WriteLine("Team 2 record: " + nTeam2Wins.ToString() + "-" + nTeam1Wins.ToString() + (nTies > 0 ? "-" + nTies.ToString() : string.Empty));
+        }
+
+        private static void DrawAveragesShell() {
+            Console.SetCursorPosition(30, 0);
+            Console.WriteLine("|-------------------------|");
+            Console.SetCursorPosition(30, 1);
+            Console.WriteLine("| Game Stats              |");
+            Console.SetCursorPosition(30, 2);
+            Console.WriteLine("|-------------------------|");
+            for (int i = 0; i < 11; i++) {
+                Console.SetCursorPosition(30, i + 3);
+                Console.WriteLine("|                         |");
+            }
+            Console.SetCursorPosition(30, 14);
+            Console.WriteLine("|-------------------------|");
+        }
+
+        private static void DrawAverages() {
+            Console.SetCursorPosition(32, 3);
+            Console.WriteLine("Average singles: " + nAverageSingles.ToString());
+            Console.SetCursorPosition(32, 4);
+            Console.WriteLine("Average doubles: " + nAverageDoubles.ToString());
+            Console.SetCursorPosition(32, 5);
+            Console.WriteLine("Average triples: " + nAverageTriples.ToString());
+            Console.SetCursorPosition(32, 6);
+            Console.WriteLine("Average homeruns: " + nAverageHomeruns.ToString());
+            Console.SetCursorPosition(32, 7);
+            Console.WriteLine("Average balls: " + nAverageBalls.ToString());
+            Console.SetCursorPosition(32, 8);
+            Console.WriteLine("Average walks: " + nAverageWalks.ToString());
+            Console.SetCursorPosition(32, 9);
+            Console.WriteLine("Average strikes: " + nAverageStrikes.ToString());
+            Console.SetCursorPosition(32, 10);
+            Console.WriteLine("Average strikeouts: " + nAverageStrikeouts.ToString());
+            Console.SetCursorPosition(32, 11);
+            Console.WriteLine("Average fly outs: " + nAverageFlyOuts.ToString());
+            Console.SetCursorPosition(32, 12);
+            Console.WriteLine("Average line outs: " + nAverageLineOuts.ToString());
+            Console.SetCursorPosition(32, 13);
+            Console.WriteLine("Average pop outs: " + nAveragePopOuts.ToString());
         }
 
         private static void DrawTotalStatsShell() {
@@ -212,8 +276,10 @@ namespace baseball {
 
             DrawTotalStatsShell();
             DrawLogShell();
+            DrawAveragesShell();
 
             DrawHistory();
+            DrawAverages();
 
             nLogIndex = 1;
             GameLog = new List<string>(nLogSize);
@@ -253,7 +319,20 @@ namespace baseball {
                 nTies++;
             }
 
+            dAverageSingles = (dAverageSingles * (nTotalGames - 1) + nTotalSingles) / nTotalGames;
+            dAverageDoubles = (dAverageDoubles * (nTotalGames - 1) + nTotalDoubles) / nTotalGames;
+            dAverageTriples = (dAverageTriples * (nTotalGames - 1) + nTotalTriples) / nTotalGames;
+            dAverageHomeruns = (dAverageHomeruns * (nTotalGames - 1) + nTotalHomeruns) / nTotalGames;
+            dAverageBalls = (dAverageBalls * (nTotalGames - 1) + nTotalBalls) / nTotalGames;
+            dAverageWalks = (dAverageWalks * (nTotalGames - 1) + nTotalWalks) / nTotalGames;
+            dAverageStrikes = (dAverageStrikes * (nTotalGames - 1) + nTotalStrikes) / nTotalGames;
+            dAverageStrikeouts = (dAverageStrikeouts * (nTotalGames - 1) + nTotalStrikeouts) / nTotalGames;
+            dAverageFlyOuts = (dAverageFlyOuts * (nTotalGames - 1) + nTotalFlyOuts) / nTotalGames;
+            dAverageLineOuts = (dAverageLineOuts * (nTotalGames - 1) + nTotalLineOuts) / nTotalGames;
+            dAveragePopOuts = (dAveragePopOuts * (nTotalGames - 1) + nTotalPopOuts) / nTotalGames;
+
             DrawHistory();
+            DrawAverages();
 
             Console.SetCursorPosition(0, Console.WindowHeight - 1);
             Console.Write("Starting new game in 5 seconds.");
